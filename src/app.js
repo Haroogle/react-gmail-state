@@ -9,26 +9,24 @@ function App() {
   const [emails, setEmails] = useState(initialEmails);
 
   const toggleRead = (email) => {
-    console.log("Read")
+    console.log("Read");
 
     // Store the return filter of emails without the email
-    const newEmails = emails.filter( (filteredEmail) => {
-      if (filteredEmail !== email) {
-        console.log(`Filtered id ${filteredEmail.id} has not the same id as email ${email.id}`)
-        return true
+    const newEmails = emails.map((targetEmail) => {
+      if (targetEmail === email) {
+        return { ...email, read: !email.read };
       }
-      return false
-    })
-    console.log(newEmails)
-
+      return targetEmail;
+    });
+    setEmails(newEmails);
+    console.log(newEmails);
 
     // setEmails to have new updated Read value in the emails list
-
-  }
+  };
 
   const toggleStar = () => {
-    console.log("Stared")
-  }
+    console.log("Stared");
+  };
 
   return (
     <div className="app">
@@ -55,7 +53,7 @@ function App() {
             <input
               id="hide-read"
               type="checkbox"
-              checked={false}
+              //checked={false}
               // onChange={() => {}}
             />
           </li>
@@ -64,19 +62,20 @@ function App() {
       <main className="emails">
         {/* Render a list of emails here */}
         {emails.map((email) => (
-          <li className="email" key={email.id}>
+          <li className={email.read ? "read" : "unread"} key={email.id}>
             <div className="select">
-              <input 
-                className="select-checkbox" 
-                type="checkbox" 
+              <input
+                className="select-checkbox"
+                type="checkbox"
                 checked={email.read}
-                onChange={() => toggleRead(email)}/>
+                onChange={() => toggleRead(email)}
+              />
             </div>
             <div className="star">
               <input
                 className="star-checkbox"
                 type="checkbox"
-                checked={email.starred}
+                //checked={email.starred}
                 onChange={toggleStar}
               />
             </div>
