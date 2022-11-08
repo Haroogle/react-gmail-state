@@ -11,10 +11,19 @@ function App() {
   const toggleRead = (email) => {
     console.log("Read")
 
-    // get an old array, remove the email we are talking about from it
-    const oldEmails = emails.filter((iteratedEmail) => iteratedEmail.id !== email.id )
-    
-    setEmails([...oldEmails, {...email, read: !email.read}])
+    // Store the return filter of emails without the email
+    const newEmails = emails.filter( (filteredEmail) => {
+      if (filteredEmail !== email) {
+        console.log(`Filtered id ${filteredEmail.id} has not the same id as email ${email.id}`)
+        return true
+      }
+      return false
+    })
+    console.log(newEmails)
+
+
+    // setEmails to have new updated Read value in the emails list
+
   }
 
   const toggleStar = () => {
@@ -54,14 +63,14 @@ function App() {
       </nav>
       <main className="emails">
         {/* Render a list of emails here */}
-        {emails.map((email, index) => (
-          <li className="email" key={index}>
+        {emails.map((email) => (
+          <li className="email" key={email.id}>
             <div className="select">
               <input 
                 className="select-checkbox" 
                 type="checkbox" 
                 checked={email.read}
-                onChange={(email) => toggleRead(email)}/>
+                onChange={() => toggleRead(email)}/>
             </div>
             <div className="star">
               <input
