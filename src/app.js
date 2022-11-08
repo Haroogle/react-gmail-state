@@ -21,8 +21,17 @@ function App() {
     // setEmails to have new updated Read value in the emails list
   };
 
-  const toggleStar = () => {
-    console.log("Stared");
+  const toggleStar = (email) => {
+    const newEmails = emails.map((targetEmail) => {
+      if (targetEmail === email) {
+        console.log(`Email before changing starred: ${email.starred}`)
+        return { ...email, starred: !email.starred };
+      }
+      return targetEmail;
+    });
+    console.log(`after changing starred:`)
+    console.log(emails)
+    setEmails(newEmails);
   };
 
   return (
@@ -75,8 +84,8 @@ function App() {
               <input
                 className="star-checkbox"
                 type="checkbox"
-                //checked={email.starred}
-                onChange={toggleStar}
+                checked={email.starred}
+                onChange={() => toggleStar(email)}
               />
             </div>
             <div className="sender"> {email.sender}</div>
