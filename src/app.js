@@ -9,8 +9,6 @@ function App() {
   const [emails, setEmails] = useState(initialEmails);
 
   const toggleRead = (email) => {
-    console.log("Read");
-
     // Store the return filter of emails without the email
     const newEmails = emails.map((targetEmail) => {
       if (targetEmail === email) {
@@ -19,7 +17,6 @@ function App() {
       return targetEmail;
     });
     setEmails(newEmails);
-    console.log(newEmails);
 
     // setEmails to have new updated Read value in the emails list
   };
@@ -62,7 +59,10 @@ function App() {
       <main className="emails">
         {/* Render a list of emails here */}
         {emails.map((email) => (
-          <li className={email.read ? "read" : "unread"} key={email.id}>
+          <li
+            className={email.read ? "email read" : " email unread"}
+            key={email.id}
+          >
             <div className="select">
               <input
                 className="select-checkbox"
