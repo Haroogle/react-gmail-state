@@ -7,7 +7,19 @@ import "./styles/app.css";
 
 function App() {
   const [emails, setEmails] = useState(initialEmails);
-  console.log(initialEmails);
+
+  const toggleRead = (email) => {
+    console.log("Read")
+
+    // get an old array, remove the email we are talking about from it
+    const oldEmails = emails.filter((iteratedEmail) => iteratedEmail.id !== email.id )
+    
+    setEmails([...oldEmails, {...email, read: !email.read}])
+  }
+
+  const toggleStar = () => {
+    console.log("Stared")
+  }
 
   return (
     <div className="app">
@@ -30,7 +42,7 @@ function App() {
           </li>
 
           <li className="item toggle">
-            <label for="hide-read">Hide read</label>
+            <label htmlFor="hide-read">Hide read</label>
             <input
               id="hide-read"
               type="checkbox"
@@ -45,13 +57,18 @@ function App() {
         {emails.map((email, index) => (
           <li className="email" key={index}>
             <div className="select">
-              <input className="select-checkbox" type="checkbox" />
+              <input 
+                className="select-checkbox" 
+                type="checkbox" 
+                checked={email.read}
+                onChange={(email) => toggleRead(email)}/>
             </div>
             <div className="star">
               <input
                 className="star-checkbox"
                 type="checkbox"
                 checked={email.starred}
+                onChange={toggleStar}
               />
             </div>
             <div className="sender"> {email.sender}</div>
