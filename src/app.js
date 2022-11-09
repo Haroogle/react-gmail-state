@@ -85,7 +85,11 @@ function App() {
                 <input className="select-checkbox" type="checkbox" />
               </div>
               <div className="star">
-                <input className="star-checkbox" type="checkbox" />
+                <input
+                  className="star-checkbox"
+                  type="checkbox"
+                  checked={email.starred}
+                />
               </div>
               <div className="sender">{email.sender}</div>
               <div className="title">{email.title}</div>
